@@ -5,7 +5,9 @@ const app = new Application();
 
 // 🔧 IMPORTANT : En production Dokku, utiliser port 80 (standard)
 // En développement, utiliser 3000
-const PORT = parseInt(Deno.env.get("PORT") || "3000");
+const isProduction = Deno.env.get("NODE_ENV") === "production";
+const defaultPort = isProduction ? "80" : "3000";
+const PORT = parseInt(Deno.env.get("PORT") || defaultPort);
 const ROOT = `${Deno.cwd()}/`;
 const isProduction = Deno.env.get("NODE_ENV") === "production";
 
