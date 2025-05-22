@@ -1,15 +1,13 @@
-// server.ts - Version avec port standard pour Dokku
+// server.ts - Version production Dokku (corrigée)
 import { Application } from "https://deno.land/x/oak@v17.1.4/mod.ts";
 
 const app = new Application();
+const ROOT = `${Deno.cwd()}/`;
 
-// 🔧 IMPORTANT : En production Dokku, utiliser port 80 (standard)
-// En développement, utiliser 3000
+// Configuration du port pour Dokku
 const isProduction = Deno.env.get("NODE_ENV") === "production";
 const defaultPort = isProduction ? "80" : "3000";
 const PORT = parseInt(Deno.env.get("PORT") || defaultPort);
-const ROOT = `${Deno.cwd()}/`;
-const isProduction = Deno.env.get("NODE_ENV") === "production";
 
 console.log("🎨 Démarrage serveur statique MPP Frontend");
 console.log(`📁 Racine: ${ROOT}`);
