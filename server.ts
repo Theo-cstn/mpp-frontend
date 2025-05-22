@@ -6,8 +6,10 @@ const ROOT = `${Deno.cwd()}/`;
 
 // Configuration du port pour Dokku
 const isProduction = Deno.env.get("NODE_ENV") === "production";
-const defaultPort = isProduction ? "80" : "3000";
-const PORT = parseInt(Deno.env.get("PORT") || defaultPort);
+
+// En production, forcer le port 80 (ignorer la variable PORT de Dokku)
+// En développement, utiliser PORT ou 3000 par défaut
+const PORT = isProduction ? 80 : parseInt(Deno.env.get("PORT") || "3000");
 
 console.log("🎨 Démarrage serveur statique MPP Frontend");
 console.log(`📁 Racine: ${ROOT}`);
