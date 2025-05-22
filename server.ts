@@ -1,7 +1,32 @@
+// server.ts - Version avec port standard pour Dokku
 import { Application } from "https://deno.land/x/oak@v17.1.4/mod.ts";
 
 const app = new Application();
+
+// 🔧 IMPORTANT : En production Dokku, utiliser port 80 (standard)
+// En développement, utiliser 3000
+const PORT = parseInt(Deno.env.get("PORT") || "80");
 const ROOT = `${Deno.cwd()}/`;
+
+console.log(`🎨 Démarrage serveur statique MPP Frontend`);
+console.log(`📁 Racine: ${ROOT}`);
+console.log(`🌐 Port: ${PORT}`);
+console.log(`🔧 Environment: ${Deno.env.get("NODE_ENV") || "development"}`);
+
+// Route de santé pour monitoring
+app.use(async (ctx, next) => {
+  if (ctx.request.url.pathname === "/health") {
+    ctx.response.body = { 
+      status: "ok", 
+      service: "mpp-frontend",
+      timestamp: new Date().toISOString(),
+      port: PORT,
+      environment: Deno.env.get("NODE_ENV") || "development"
+    };
+    return;
+  }
+  await next();
+});
 
 // Middleware pour servir des fichiers statiques
 app.use(async (ctx, next) => {
@@ -10,9 +35,7 @@ app.use(async (ctx, next) => {
       root: ROOT,
       index: "login.html",
     });
-    // Si le fichier est trouvé, il est envoyé et cette fonction se termine
   } catch {
-    // Si le fichier n'est pas trouvé, on passe au middleware suivant
     await next();
   }
 });
@@ -23,34 +46,8 @@ app.use((ctx) => {
   ctx.response.body = "404 File not found";
 });
 
-// Fonction pour lancer le serveur avec ou sans HTTPS
-async function startServer() {
-  if (Deno.args.length < 1) {
-    console.log(`Usage: $ deno run --allow-net --allow-read=./ server.ts PORT [CERT_PATH KEY_PATH]`);
-    Deno.exit(1);
-  }
-
-  const port = parseInt(Deno.args[0]);
-  const options: any = { port };
-
-  if (Deno.args.length >= 3) {
-    try {
-      options.secure = true;
-      options.cert = await Deno.readTextFile(Deno.args[1]);
-      options.key = await Deno.readTextFile(Deno.args[2]);
-      console.log(`SSL configuration ready (utilisez https)`);
-    } catch (error) {
-      console.error("Erreur lors du chargement des certificats SSL:", error);
-      Deno.exit(1);
-    }
-  }
-
-  console.log(`Serveur statique Oak en cours d'exécution sur le port ${options.port} pour les fichiers dans ${ROOT}`);
-  return await app.listen(options);
-}
-
 // Démarrer le serveur
-startServer().catch(err => {
-  console.error("Erreur de démarrage du serveur:", err);
-  Deno.exit(1);
-});
+console.log(`🚀 Serveur statique démarré sur le port ${PORT}`);
+console.log(`📊 Health check: http://0.0.0.0:${PORT}/health`);
+
+await app.listen({ port: PORT });
