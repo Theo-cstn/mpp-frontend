@@ -1,17 +1,17 @@
-// server.ts - Version production Dokku (corrigée)
+// server.ts - Version finale Dokku (simple et fonctionnelle)
 import { Application } from "https://deno.land/x/oak@v17.1.4/mod.ts";
 
 const app = new Application();
 const ROOT = `${Deno.cwd()}/`;
 
-// Configuration du port pour Dokku
-// Dokku utilise des ports standards : frontend=3000, backend=8000
+// Configuration simple pour Dokku
 const PORT = parseInt(Deno.env.get("PORT") || "3000");
+const environment = Deno.env.get("NODE_ENV") || "development";
 
 console.log("🎨 Démarrage serveur statique MPP Frontend");
 console.log(`📁 Racine: ${ROOT}`);
 console.log(`🌐 Port: ${PORT}`);
-console.log(`🔧 Environment: ${isProduction ? "production" : "development"}`);
+console.log(`🔧 Environment: ${environment}`);
 
 // Middleware pour servir des fichiers statiques
 app.use(async (ctx, next) => {
@@ -33,7 +33,7 @@ app.use(async (ctx, next) => {
       service: "mpp-frontend",
       timestamp: new Date().toISOString(),
       port: PORT,
-      environment: isProduction ? "production" : "development"
+      environment: environment
     };
     return;
   }
@@ -48,13 +48,9 @@ app.use((ctx) => {
 
 // Démarrer le serveur
 console.log(`🚀 Serveur statique démarré sur le port ${PORT}`);
-if (isProduction) {
-  console.log(`📊 Health check: http://0.0.0.0:${PORT}/health`);
-} else {
-  console.log(`📊 Health check: http://localhost:${PORT}/health`);
-}
+console.log(`📊 Health check: http://0.0.0.0:${PORT}/health`);
 
 await app.listen({ 
   port: PORT,
-  hostname: isProduction ? "0.0.0.0" : "localhost"
+  hostname: "0.0.0.0"
 });
