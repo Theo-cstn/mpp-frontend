@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion des matchs - Admin MPP</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="scrollable-content">
+  <div class="matches-container">
+    <a href="/admin-menu.html" class="back-button">← Retour au menu admin</a>
+    
+    <div class="admin-header">
+      <h1>Gestion des matchs</h1>
+      <div>
+        <span id="adminUsername"></span>
+      </div>
+    </div>
+    
+    <div id="errorMessage" class="error-message" style="display: none;"></div>
+    <div id="successMessage" class="success-message" style="display: none;"></div>
+    
+    <!-- Formulaire pour créer un match -->
+    <div class="form-container">
+      <h3>Créer un nouveau match</h3>
+      <form id="createMatchForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="matchLeague">Championnat</label>
+            <select id="matchLeague" required>
+              <option value="">Sélectionner un championnat</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="matchRound">Journée/Phase</label>
+            <select id="matchRound" required>
+              <option value="">Sélectionner une journée/phase</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="matchHomeTeam">Équipe domicile</label>
+            <select id="matchHomeTeam" required>
+              <option value="">Sélectionner une équipe</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="matchAwayTeam">Équipe extérieur</label>
+            <select id="matchAwayTeam" required>
+              <option value="">Sélectionner une équipe</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="matchDate">Date et heure</label>
+            <input type="datetime-local" id="matchDate" required>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Créer le match</button>
+      </form>
+    </div>
+    
+    <!-- Tableau des matchs -->
+    <div class="table-container">
+      <h3>Liste des matchs</h3>
+      <table id="matchesTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Championnat</th>
+            <th>Journée</th>
+            <th>Équipe domicile</th>
+            <th>Équipe extérieur</th>
+            <th>Date</th>
+            <th>Statut</th>
+            <th>Score</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Les données seront insérées ici -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <script type="module" src="admin-matches.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classement - MPP</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="scrollable-content">
+  <div class="classement-container">
+    <div class="header-nav">
+      <a href="/dashboard.html" class="back-button">← Retour au dashboard</a>
+      <div class="user-info">
+        <span>Connecté en tant que <strong id="currentUser"></strong></span>
+      </div>
+    </div>
+    
+    <h1>Classement des joueurs</h1>
+    
+    <!-- Statistiques générales simplifiées -->
+    <div class="stats-cards">
+      <div class="stat-card">
+        <h3>Nombre de joueurs</h3>
+        <div class="stat-value" id="totalPlayers">-</div>
+      </div>
+      <div class="stat-card">
+        <h3>Votre position</h3>
+        <div class="stat-value" id="userRank">-</div>
+      </div>
+    </div>
+    
+    <!-- Podium des 3 premiers -->
+    <div class="podium" id="podium">
+      <!-- Sera rempli par JavaScript -->
+    </div>
+    
+    <!-- Tableau de classement -->
+    <table class="ranking-table" id="rankingTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Joueur</th>
+          <th>Points</th>
+          <th>Pronostics</th>
+          <th>Scores exacts</th>
+          <th>Bons résultats</th>
+          <th>Taux de réussite</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Sera rempli par JavaScript -->
+      </tbody>
+    </table>
+  </div>
+  
+  <script type="module" src="classement.js"></script>
+</body>
+</html>

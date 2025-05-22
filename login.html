@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="centered-content">
+  <div id="loginBox">
+    <h2>Connexion</h2>
+    <label for="username">Username:</label>
+    <input type="text" id="username" required><br><br>
+    
+    <label for="password">Password:</label>
+    <input type="password" id="password" required><br><br>
+
+    <button id="loginButton">Login</button>
+    
+    <p>Pas encore de compte? <a href="register.html">S'inscrire</a></p>
+    
+    <div id="errorMessage" style="color: red; margin-top: 10px; display: none;"></div>
+  </div>
+
+  <script type="module" src="script.js"></script>
+  <script type="module">
+    import { API_URL } from './config.mjs';
+    
+    // Vérifier si déjà connecté
+    fetch(`${API_URL}/me`, { 
+      credentials: "include"
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.username) {
+        // Déjà connecté, rediriger vers le dashboard
+        window.location.href = "/dashboard.html";
+      }
+    })
+    .catch(err => console.log("Non connecté, affichage du formulaire de connexion"));
+  </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="centered-content">
+  <div class="chat-app">
+    <div class="chat-header">
+      <h2>Chat en direct</h2>
+      <div class="user-info">
+        Connecté en tant que <span id="currentUser"></span> 
+      </div>
+    </div>
+    
+    <div id="chatContainer"></div>
+    
+    <div class="input-container">
+      <input type="text" id="messageInput" placeholder="Tapez votre message ici">
+      <button id="sendButton">Envoyer</button>
+    </div>
+  </div>
+  <script type="module" src="chat.js"></script>
+</body>
+</html>

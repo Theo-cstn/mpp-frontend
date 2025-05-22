@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pronostics - MPP</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="scrollable-content">
+  <div class="pronostics-container">
+    <div class="header-nav">
+      <a href="/dashboard.html" class="back-button">← Retour au dashboard</a>
+      <div class="user-info">
+        <span>Connecté en tant que <strong id="currentUser"></strong></span>
+      </div>
+    </div>
+    
+    <h1>Mes Pronostics</h1>
+    
+    <div class="tabs">
+      <div class="tab active" data-tab="upcoming">Matchs à venir</div>
+      <div class="tab" data-tab="my-predictions">Mes pronostics</div>
+    </div>
+    
+    <div id="errorMessage" class="error-message" style="display: none;"></div>
+    <div id="successMessage" class="success-message" style="display: none;"></div>
+    
+    <div id="upcoming" class="tab-content">
+      <div class="filter-container">
+        <select id="leagueFilter" class="filter-select">
+          <option value="">Tous les championnats</option>
+        </select>
+        <select id="roundFilter" class="filter-select" disabled>
+          <option value="">Toutes les journées</option>
+        </select>
+      </div>
+      <div id="upcomingMatches" class="matches-grid">
+        <!-- Les matchs à venir seront chargés ici -->
+      </div>
+    </div>
+    
+    <div id="my-predictions" class="tab-content" style="display: none;">
+      <div class="filter-container">
+        <select id="myLeagueFilter" class="filter-select">
+          <option value="">Tous les championnats</option>
+        </select>
+        <select id="myRoundFilter" class="filter-select" disabled>
+          <option value="">Toutes les journées</option>
+        </select>
+      </div>
+      <div id="myPredictions" class="matches-grid">
+        <!-- Les pronostics de l'utilisateur seront chargés ici -->
+      </div>
+    </div>
+  </div>
+  
+  <script type="module" src="pronostics.js"></script>
+</body>
+</html>

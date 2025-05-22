@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Base de données - Admin MPP</title>
+  <link rel="stylesheet" href="style.css">  
+</head>
+<body class="scrollable-content">
+  <div class="database-container">
+    <a href="/admin-menu.html" class="back-button">← Retour au menu admin</a>
+    
+    <div class="admin-header">
+      <h1>Base de données</h1>
+      <div>
+        <span id="adminUsername"></span>
+      </div>
+    </div>
+    
+    <div class="data-section">
+      <h2>Utilisateurs</h2>
+      <div class="table-container">
+        <table id="usersTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Username</th>
+              <th>Role</th>
+              <th>Points</th>
+              <th>Date création</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Les données seront insérées ici -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <div class="data-section">
+      <h2>Championnats</h2>
+      <div class="table-container">
+        <table id="leaguesTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nom</th>
+              <th>Pays</th>
+              <th>Saison</th>
+              <th>Coupe?</th>
+              <th>Actif?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Les données seront insérées ici -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <div class="data-section">
+      <h2>Équipes</h2>
+      <div class="table-container">
+        <table id="teamsTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nom</th>
+              <th>Championnat</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Les données seront insérées ici -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  <script type="module" src="admin-database.js"></script>
+</body>
+</html>

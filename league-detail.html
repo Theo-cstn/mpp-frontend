@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ligue Privée - MPP</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="scrollable-content">
+  <div class="league-detail-container">
+    <div class="header-nav">
+      <a href="/private-leagues.html" class="back-button">← Retour aux ligues</a>
+      <div class="user-info">
+        <span>Connecté en tant que <strong id="currentUser"></strong></span>
+      </div>
+    </div>
+    
+    <div class="league-header">
+      <h1 id="leagueName">Détails de la ligue</h1>
+      <p id="leagueDescription">Description de la ligue</p>
+      
+      <div class="league-meta">
+        <div class="meta-item">
+          <strong>Code d'invitation:</strong> 
+          <span id="inviteCode" class="invite-code"></span>
+        </div>
+        <div class="meta-item">
+          <strong>Créateur:</strong> 
+          <span id="creatorName"></span>
+        </div>
+        <div class="meta-item">
+          <strong>Membres:</strong> 
+          <span id="memberCount"></span>/<span id="maxMembers"></span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="league-content">
+      <!-- Classement de la ligue -->
+      <div class="league-ranking">
+        <h2>Classement</h2>
+        <table class="ranking-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Joueur</th>
+              <th>Points</th>
+              <th>Rôle</th>
+            </tr>
+          </thead>
+          <tbody id="leagueRanking">
+            <!-- Les membres seront affichés ici -->
+          </tbody>
+        </table>
+        
+        <div class="league-actions">
+          <button id="leaveLeagueBtn" class="btn btn-danger" style="display: none;">Quitter la ligue</button>
+          <button id="deleteLeagueBtn" class="btn btn-danger" style="display: none;">Supprimer la ligue</button>
+        </div>
+      </div>
+      
+      <!-- Chat de la ligue -->
+      <div class="league-chat-panel">
+        <h2>Chat de la ligue</h2>
+        <div class="league-chat">
+          <div id="leagueChatContainer" class="chat-container"></div>
+          <div class="input-container">
+            <input type="text" id="leagueChatInput" placeholder="Tapez votre message ici">
+            <button id="leagueChatSend" class="btn btn-primary">Envoyer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script type="module" src="league-detail.js"></script>
+</body>
+</html>

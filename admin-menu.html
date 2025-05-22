@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administration - MPP</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="scrollable-content">
+  <div class="admin-menu-container">
+    <div class="admin-header">
+      <a href="/dashboard.html" class="back-button">← Retour au dashboard</a>
+      <div class="user-info">
+        <span>Administrateur : <strong id="adminUsername"></strong></span>
+      </div>
+    </div>
+    
+    <h1>🛠️ Centre d'administration</h1>
+    <p class="admin-description">Gérez tous les aspects de votre application de pronostics</p>
+    
+    <div class="admin-menu-grid">
+      <a href="/admin-database.html" class="admin-menu-item">
+        <div class="admin-icon">📊</div>
+        <h3>Base de données</h3>
+        <p>Consultez et gérez les utilisateurs, championnats et équipes</p>
+      </a>
+      
+      <a href="/admin-matches.html" class="admin-menu-item">
+        <div class="admin-icon">⚽</div>
+        <h3>Gestion des matchs</h3>
+        <p>Créez des matchs, mettez à jour les scores et gérez le calendrier</p>
+      </a>
+      
+      <a href="/admin-predictions.html" class="admin-menu-item">
+        <div class="admin-icon">🎯</div>
+        <h3>Pronostics</h3>
+        <p>Consultez tous les pronostics et calculez les points</p>
+      </a>
+      
+      <a href="/admin-settings.html" class="admin-menu-item">
+        <div class="admin-icon">⚙️</div>
+        <h3>Paramètres</h3>
+        <p>Configurez les règles de points et les paramètres de l'application</p>
+      </a>
+    </div>
+    
+    <div class="admin-stats">
+      <div class="stat-card">
+        <h4>Statut du système</h4>
+        <div class="status-indicator">
+          <span class="status-dot active"></span>
+          <span>Opérationnel</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script type="module">
+    import { API_URL } from './config.mjs';
+    
+    // Vérifier l'authentification admin
+    fetch(`${API_URL}/admin/check`, {
+      credentials: "include"
+    })
+    .then(res => {
+      if (!res.ok) throw new Error("Non autorisé");
+      return res.json();
+    })
+    .then(data => {
+      if (data.username) {
+        document.getElementById("adminUsername").textContent = data.username;
+      }
+    })
+    .catch(err => {
+      window.location.href = "/dashboard.html";
+    });
+  </script>
+</body>
+</html>

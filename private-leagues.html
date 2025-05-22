@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ligues Privées - MPP</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="scrollable-content">
+  <div class="private-leagues-container">
+    <div class="header-nav">
+      <a href="/dashboard.html" class="back-button">← Retour au dashboard</a>
+      <div class="user-info">
+        <span>Connecté en tant que <strong id="currentUser"></strong></span>
+      </div>
+    </div>
+    
+    <h1>Mes Ligues Privées</h1>
+    
+    <div id="errorMessage" class="error-message" style="display: none;"></div>
+    <div id="successMessage" class="success-message" style="display: none;"></div>
+    
+    <!-- Formulaire pour créer ou rejoindre une ligue -->
+    <div class="league-actions">
+      <div class="form-container">
+        <h3>Créer une nouvelle ligue</h3>
+        <form id="createLeagueForm">
+          <div class="form-group">
+            <label for="leagueName">Nom de la ligue</label>
+            <input type="text" id="leagueName" required>
+          </div>
+          <div class="form-group">
+            <label for="leagueDescription">Description (optionnel)</label>
+            <textarea id="leagueDescription" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="maxMembers">Nombre maximum de membres</label>
+            <input type="number" id="maxMembers" value="20" min="2" max="100">
+          </div>
+          <button type="submit" class="btn btn-primary">Créer la ligue</button>
+        </form>
+      </div>
+      
+      <div class="form-container">
+        <h3>Rejoindre une ligue</h3>
+        <form id="joinLeagueForm">
+          <div class="form-group">
+            <label for="inviteCode">Code d'invitation</label>
+            <input type="text" id="inviteCode" placeholder="ABC123" required maxlength="6">
+          </div>
+          <button type="submit" class="btn btn-success">Rejoindre</button>
+        </form>
+      </div>
+    </div>
+    
+    <!-- Liste des ligues -->
+    <div class="leagues-list">
+      <h2>Mes ligues</h2>
+      <div id="leaguesContainer" class="leagues-grid">
+        <!-- Les ligues seront chargées ici -->
+      </div>
+    </div>
+  </div>
+  
+  <script type="module" src="private-leagues.js"></script>
+</body>
+</html>
