@@ -5,28 +5,14 @@ const app = new Application();
 
 // 🔧 IMPORTANT : En production Dokku, utiliser port 80 (standard)
 // En développement, utiliser 3000
-const PORT = parseInt(Deno.env.get("PORT") || "80");
+const PORT = parseInt(Deno.env.get("PORT") || "3000");
 const ROOT = `${Deno.cwd()}/`;
+const isProduction = Deno.env.get("NODE_ENV") === "production";
 
-console.log(`🎨 Démarrage serveur statique MPP Frontend`);
+console.log("🎨 Démarrage serveur statique MPP Frontend");
 console.log(`📁 Racine: ${ROOT}`);
 console.log(`🌐 Port: ${PORT}`);
-console.log(`🔧 Environment: ${Deno.env.get("NODE_ENV") || "development"}`);
-
-// Route de santé pour monitoring
-app.use(async (ctx, next) => {
-  if (ctx.request.url.pathname === "/health") {
-    ctx.response.body = { 
-      status: "ok", 
-      service: "mpp-frontend",
-      timestamp: new Date().toISOString(),
-      port: PORT,
-      environment: Deno.env.get("NODE_ENV") || "development"
-    };
-    return;
-  }
-  await next();
-});
+console.log(`🔧 Environment: ${isProduction ? "production" : "development"}`);
 
 // Middleware pour servir des fichiers statiques
 app.use(async (ctx, next) => {
@@ -40,6 +26,21 @@ app.use(async (ctx, next) => {
   }
 });
 
+// Route health check pour monitoring
+app.use(async (ctx, next) => {
+  if (ctx.request.url.pathname === "/health") {
+    ctx.response.body = {
+      status: "ok",
+      service: "mpp-frontend",
+      timestamp: new Date().toISOString(),
+      port: PORT,
+      environment: isProduction ? "production" : "development"
+    };
+    return;
+  }
+  await next();
+});
+
 // Middleware pour gérer les requêtes non traitées
 app.use((ctx) => {
   ctx.response.status = 404;
@@ -48,6 +49,13 @@ app.use((ctx) => {
 
 // Démarrer le serveur
 console.log(`🚀 Serveur statique démarré sur le port ${PORT}`);
-console.log(`📊 Health check: http://0.0.0.0:${PORT}/health`);
+if (isProduction) {
+  console.log(`📊 Health check: http://0.0.0.0:${PORT}/health`);
+} else {
+  console.log(`📊 Health check: http://localhost:${PORT}/health`);
+}
 
-await app.listen({ port: PORT });
+await app.listen({ 
+  port: PORT,
+  hostname: isProduction ? "0.0.0.0" : "localhost"
+});
