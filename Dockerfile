@@ -16,8 +16,5 @@ COPY . .
 # Cache du serveur
 RUN deno cache server.ts
 
-# Exposer le port
-EXPOSE 3000
-
-# Commande de démarrage
-CMD ["deno", "run", "--allow-net", "--allow-read", "--allow-env", "server.ts", "3000"]
+# Commande de démarrage (Dokku fournit automatiquement la variable PORT)
+CMD ["deno", "run", "--allow-net", "--allow-read", "--allow-env", "server.ts"]

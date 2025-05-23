@@ -1,16 +1,15 @@
-// server.ts - Version finale Dokku (simple et fonctionnelle)
+// server.ts - Version finale Dokku (PORT dynamique)
 import { Application } from "https://deno.land/x/oak@v17.1.4/mod.ts";
 
 const app = new Application();
 const ROOT = `${Deno.cwd()}/`;
 
-// Configuration simple pour Dokku
 const PORT = parseInt(Deno.env.get("PORT") || "3000");
 const environment = Deno.env.get("NODE_ENV") || "development";
 
 console.log("🎨 Démarrage serveur statique MPP Frontend");
 console.log(`📁 Racine: ${ROOT}`);
-console.log(`🌐 Port: ${PORT}`);
+console.log(`🌐 Port: ${PORT} ${Deno.env.get("PORT") ? "(fourni par Dokku)" : "(développement local)"}`);
 console.log(`🔧 Environment: ${environment}`);
 
 // Middleware pour servir des fichiers statiques
@@ -46,11 +45,11 @@ app.use((ctx) => {
   ctx.response.body = "404 File not found";
 });
 
-// Démarrer le serveur
+// Démarrer le serveur sur 0.0.0.0 
 console.log(`🚀 Serveur statique démarré sur le port ${PORT}`);
 console.log(`📊 Health check: http://0.0.0.0:${PORT}/health`);
 
 await app.listen({ 
   port: PORT,
-  hostname: "0.0.0.0"
+  hostname: "0.0.0.0"  
 });

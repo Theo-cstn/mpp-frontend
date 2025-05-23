@@ -3,8 +3,8 @@
     "oak": "https://deno.land/x/oak@v17.1.4/mod.ts"
   },
   "tasks": {
-    "start": "deno run --allow-net --allow-read --allow-env server.ts 3000",
-    "dev": "deno run --allow-net --allow-read --allow-env --watch server.ts 3000",
+    "start": "deno run --allow-net --allow-read --allow-env server.ts",
+    "dev": "deno run --allow-net --allow-read --allow-env --watch server.ts",
     "serve": "deno run --allow-net --allow-read server.ts",
     "fix-imports": "bash fix_js_files.sh"
   },
