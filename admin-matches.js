@@ -382,3 +382,8 @@ function updateRoundOptions() {
     }
   }
 }
+
+// ===== EXPOSITION DES FONCTIONS POUR LES ONCLICK =====
+// Exposer les fonctions dans le scope global pour les gestionnaires onclick
+window.updateScore = updateScore;
+window.deleteMatch = deleteMatch;
