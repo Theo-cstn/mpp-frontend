@@ -104,13 +104,21 @@ document.addEventListener("DOMContentLoaded", () => {
     setupActionButtons(league, members);
   }
   
-  // Afficher le classement
+  // Afficher le classement (VERSION CORRIGÉE)
   function displayRanking(members) {
     const tableBody = document.getElementById("leagueRanking");
     tableBody.innerHTML = "";
     
-    // Trier les membres par points
-    const sortedMembers = [...members].sort((a, b) => b.points - a.points);
+    // S'assurer qu'il y a au moins un utilisateur dans le classement
+    if (!members || members.length === 0) {
+      const row = document.createElement("tr");
+      row.innerHTML = `<td colspan="4">Aucun membre dans cette ligue.</td>`;
+      tableBody.appendChild(row);
+      return;
+    }
+    
+    // Trier les membres par points (du plus haut au plus bas)
+    const sortedMembers = [...members].sort((a, b) => (b.points || 0) - (a.points || 0));
     
     sortedMembers.forEach((member, index) => {
       const row = document.createElement("tr");
@@ -118,16 +126,24 @@ document.addEventListener("DOMContentLoaded", () => {
         row.classList.add("current-user");
       }
       
-      // Calculer le rang avec gestion des ex aequo
+      // Calculer le rang avec gestion des ex aequo (VERSION SÉCURISÉE)
       let rank = index + 1;
       if (index > 0 && sortedMembers[index-1].points === member.points) {
-        rank = parseInt(tableBody.lastChild.firstChild.textContent);
+        // Récupérer le rang précédent de manière sécurisée
+        const previousRow = tableBody.children[index - 1];
+        if (previousRow && previousRow.firstChild && previousRow.firstChild.textContent) {
+          const previousRankText = previousRow.firstChild.textContent.trim();
+          const previousRank = parseInt(previousRankText);
+          if (!isNaN(previousRank)) {
+            rank = previousRank;
+          }
+        }
       }
       
       row.innerHTML = `
         <td>${rank}</td>
-        <td>${member.username}</td>
-        <td>${member.points}</td>
+        <td>${member.username || 'Utilisateur inconnu'}</td>
+        <td>${member.points || 0}</td>
         <td>${member.role === 'admin' ? 'Admin' : 'Membre'}</td>
       `;
       tableBody.appendChild(row);
