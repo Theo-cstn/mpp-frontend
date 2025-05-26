@@ -7,10 +7,10 @@ const ROOT = `${Deno.cwd()}/`;
 const PORT = parseInt(Deno.env.get("PORT") || "3000");
 const environment = Deno.env.get("NODE_ENV") || "development";
 
-console.log("🎨 Démarrage serveur statique MPP Frontend");
-console.log(`📁 Racine: ${ROOT}`);
-console.log(`🌐 Port: ${PORT} ${Deno.env.get("PORT") ? "(fourni par Dokku)" : "(développement local)"}`);
-console.log(`🔧 Environment: ${environment}`);
+console.log(" Démarrage serveur statique MPP Frontend");
+console.log(` Racine: ${ROOT}`);
+console.log(` Port: ${PORT} ${Deno.env.get("PORT") ? "(fourni par Dokku)" : "(développement local)"}`);
+console.log(` Environment: ${environment}`);
 
 // Middleware pour servir des fichiers statiques
 app.use(async (ctx, next) => {
